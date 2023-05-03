@@ -89,7 +89,7 @@ const editNoteByIdHandler = (req, h) => {
 
     const res = h.response({
       status: "success",
-      message: "Catatan berhasil diiperbarui",
+      message: "Catatan berhasil diperbarui",
     });
     res.code(200);
     return res;
@@ -104,26 +104,32 @@ const editNoteByIdHandler = (req, h) => {
 };
 
 const deleteNoteByIdHandler = (req, h) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const index = notes.findIndex((note) => note.id === id);
+  const index = notes.findIndex((note) => note.id === id);
 
-    if (index !== -1){
-        notes.splice(index, 1);
-        const res = h.response({
-            status: "success",
-            message: "Catatan berhasil diiperbarui",
-          });
-          res.code(200);
-          return res;
-    }
-
+  if (index !== -1) {
+    notes.splice(index, 1);
     const res = h.response({
-        status: "fail",
-        message: "Gagal menghapus catatan, ID tidak ditemukan",
-      });
-      res.code(404);
-      return res;
-}
+      status: "success",
+      message: "Catatan berhasil dihapus",
+    });
+    res.code(200);
+    return res;
+  }
 
-module.exports = { addNoteHandler, getAllNotesHandler, getNoteByIdHandler, editNoteByIdHandler, deleteNoteByIdHandler };
+  const res = h.response({
+    status: "fail",
+    message: "Gagal menghapus catatan, ID tidak ditemukan",
+  });
+  res.code(404);
+  return res;
+};
+
+module.exports = {
+  addNoteHandler,
+  getAllNotesHandler,
+  getNoteByIdHandler,
+  editNoteByIdHandler,
+  deleteNoteByIdHandler,
+};
